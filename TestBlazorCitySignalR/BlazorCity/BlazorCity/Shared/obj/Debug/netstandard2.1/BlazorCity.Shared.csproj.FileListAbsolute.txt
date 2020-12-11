@@ -1,0 +1,9 @@
+C:\Work\C#\BlazorCity\BlazorCity\Shared\bin\Debug\netstandard2.1\BlazorCity.Shared.deps.json
+C:\Work\C#\BlazorCity\BlazorCity\Shared\bin\Debug\netstandard2.1\BlazorCity.Shared.dll
+C:\Work\C#\BlazorCity\BlazorCity\Shared\bin\Debug\netstandard2.1\BlazorCity.Shared.pdb
+C:\Work\C#\BlazorCity\BlazorCity\Shared\obj\Debug\netstandard2.1\BlazorCity.Shared.csprojAssemblyReference.cache
+C:\Work\C#\BlazorCity\BlazorCity\Shared\obj\Debug\netstandard2.1\BlazorCity.Shared.AssemblyInfoInputs.cache
+C:\Work\C#\BlazorCity\BlazorCity\Shared\obj\Debug\netstandard2.1\BlazorCity.Shared.AssemblyInfo.cs
+C:\Work\C#\BlazorCity\BlazorCity\Shared\obj\Debug\netstandard2.1\BlazorCity.Shared.csproj.CoreCompileInputs.cache
+C:\Work\C#\BlazorCity\BlazorCity\Shared\obj\Debug\netstandard2.1\BlazorCity.Shared.dll
+C:\Work\C#\BlazorCity\BlazorCity\Shared\obj\Debug\netstandard2.1\BlazorCity.Shared.pdb

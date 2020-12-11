@@ -1,0 +1,109 @@
+﻿@page "/editcity/{id}"
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<EditForm Model="@city" OnValidSubmit="UpdateCity">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Название города</th>
+                            <th scope="col">Население</th>
+                            <th scope="col">Год основания</th>
+                            <th scope="col">Месяц основания</th>
+                            <th scope="col">День основания</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input class="form-control" @bind="@city.CityName" />
+                            </td>
+                            <td>
+                                <input class="form-control" @bind="@city.CityPopulation" />
+                            </td>
+                            <td>
+                                <input class="form-control" @bind="@city.CityFoundationYear" />
+                            </td>
+                            <td>
+                                <select class="custom-select" @bind="@city.CityDoundationMonth">
+                                    <option value="1">Январь</option>
+                                    <option selected="selected" value="2">Февраль</option>
+                                    <option value="3">Март</option>
+                                    <option value="4">Апрель</option>
+                                    <option value="5">Май</option>
+                                    <option value="6">Июнь</option>
+                                    <option value="7">Июль</option>
+                                    <option value="8">Август</option>
+                                    <option value="9">Сентябрь</option>
+                                    <option value="10">Октябрь</option>
+                                    <option value="11">Ноябрь</option>
+                                    <option value="12">Декабрь</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input class="form-control" @bind="@city.CityDoundationDay" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-success">Изменить город</button>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-danger" @onclick="@Cancel">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+    @code {
+        private HubConnection hubConnection;
+        [Parameter]
+        public string id { get; set; }
+
+        City city = new City();
+
+        protected override async Task OnInitializedAsync()
+        {
+            city = await Http.GetFromJsonAsync<City>("City/" + id);
+
+            hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/CityHub"))
+            .Build();
+
+            await hubConnection.StartAsync();
+        }
+
+        public async Task UpdateCity()
+        {
+            await Http.PutAsJsonAsync("City/" + id, city);
+            if (IsConnected) await SendMessage();
+
+            NavigationManager.NavigateTo("");
+        }
+
+        Task SendMessage() => hubConnection.SendAsync("SendMessage");
+
+        public bool IsConnected => hubConnection.State == HubConnectionState.Connected;
+
+        public void Dispose()
+        {
+            _ = hubConnection.DisposeAsync();
+        }
+
+        void Cancel()
+        {
+            NavigationManager.NavigateTo("");
+        }
+
+    }
